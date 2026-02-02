@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Café Aroma - ร้านกาแฟพรีเมียมในบรรยากาศอบอุ่น">
+  <title>Café Aroma | ร้านกาแฟพรีเมียม</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --coffee-dark: #1a0f0a;
+      --coffee-medium: #3d2314;
+      --coffee-light: #6b4423;
+      --cream: #faf6f0;
+      --cream-dark: #f0e6d6;
+      --gold: #c9a55c;
+      --gold-light: #dfc088;
+      --gold-dark: #a68942;
+      --text-dark: #1a1a1a;
+      --text-light: #ffffff;
+      --accent: #8b5e34;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(26, 15, 10, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 0.75rem 0;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-cta {
+      padding: 0.6rem 1.5rem;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--coffee-dark);
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 1000;
+      padding: 1rem 1.5rem;
+      background: var(--coffee-dark);
+      color: var(--gold);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--gold-dark);
+    }
+
+    .back-btn:hover {
+      background: var(--gold);
+      color: var(--coffee-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--coffee-dark) 0%, var(--coffee-medium) 50%, var(--coffee-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="%23ffffff08"/><circle cx="80" cy="40" r="1.5" fill="%23ffffff05"/><circle cx="40" cy="70" r="1" fill="%23ffffff08"/><circle cx="90" cy="90" r="1" fill="%23ffffff05"/></svg>') repeat;
+      background-size: 150px 150px;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: linear-gradient(to top, var(--cream), transparent);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: rgba(201, 165, 92, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 10vw, 6rem);
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: 3px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--cream-dark);
+      margin-bottom: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--coffee-dark);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(201, 165, 92, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid var(--cream);
+    }
+
+    .btn-outline:hover {
+      background: var(--cream);
+      color: var(--coffee-dark);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: var(--gold);
+      font-size: 1.5rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      40% {
+        transform: translateX(-50%) translateY(-15px);
+      }
+
+      60% {
+        transform: translateX(-50%) translateY(-7px);
+      }
+    }
+
+    /* About Section */
+    .about {
+      padding: 120px 2rem;
+      background: var(--cream);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: linear-gradient(135deg, var(--coffee-medium), var(--coffee-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      color: var(--gold);
+    }
+
+    .about-image-accent {
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      width: 200px;
+      height: 200px;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: var(--coffee-dark);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .about-image-accent .number {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .about-image-accent .text {
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .section-label {
+      color: var(--gold-dark);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .about-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: var(--coffee-dark);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .about-content p {
+      color: var(--coffee-light);
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .about-feature {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .about-feature i {
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+
+    .about-feature span {
+      color: var(--coffee-medium);
+      font-weight: 500;
+    }
+
+    /* Menu Section */
+    .menu {
+      padding: 120px 2rem;
+      background: var(--coffee-dark);
+      color: var(--cream);
+      position: relative;
+    }
+
+    .menu::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: linear-gradient(to bottom, var(--cream), transparent);
+      pointer-events: none;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .section-header p {
+      color: var(--gold-light);
+      font-size: 1.1rem;
+    }
+
+    .menu-categories {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .menu-cat-btn {
+      padding: 0.75rem 2rem;
+      background: transparent;
+      border: 1px solid rgba(201, 165, 92, 0.3);
+      color: var(--gold-light);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-cat-btn:hover,
+    .menu-cat-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--coffee-dark);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .menu-item {
+      display: flex;
+      gap: 1.5rem;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .menu-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--gold);
+      transform: translateY(-5px);
+    }
+
+    .menu-image {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--coffee-dark);
+      flex-shrink: 0;
+    }
+
+    .menu-info {
+      flex: 1;
+    }
+
+    .menu-info h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .menu-info p {
+      color: var(--cream-dark);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .menu-price {
+      color: var(--gold);
+      font-size: 1.3rem;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Gallery Section */
+    .gallery {
+      padding: 120px 2rem;
+      background: var(--cream);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .gallery-item {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--coffee-medium), var(--coffee-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--gold);
+      cursor: pointer;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+      z-index: 10;
+    }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+
+    .gallery-item:nth-child(1) {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      padding: 120px 2rem;
+      background: linear-gradient(135deg, var(--coffee-dark), var(--coffee-medium));
+      color: var(--cream);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .testimonial-card {
+      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-10px);
+    }
+
+    .testimonial-stars {
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+    }
+
+    .testimonial-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      font-style: italic;
+      color: var(--cream-dark);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--coffee-dark);
+      font-weight: 600;
+    }
+
+    .author-info h5 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .author-info span {
+      font-size: 0.85rem;
+      color: var(--gold-light);
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 150px 2rem;
+      background: var(--gold);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '☕';
+      position: absolute;
+      font-size: 20rem;
+      opacity: 0.1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      color: var(--coffee-dark);
+      margin-bottom: 1rem;
+      font-weight: 400;
+      position: relative;
+    }
+
+    .cta p {
+      color: var(--coffee-medium);
+      margin-bottom: 2.5rem;
+      font-size: 1.2rem;
+      position: relative;
+    }
+
+    .cta .btn {
+      background: var(--coffee-dark);
+      color: var(--gold);
+      position: relative;
+    }
+
+    .cta .btn:hover {
+      background: var(--coffee-medium);
+      transform: translateY(-3px);
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 120px 2rem;
+      background: var(--cream);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    .contact-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--coffee-dark);
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--coffee-dark);
+      flex-shrink: 0;
+    }
+
+    .contact-text h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+      color: var(--coffee-dark);
+    }
+
+    .contact-text p {
+      color: var(--coffee-light);
+    }
+
+    .contact-map {
+      background: linear-gradient(135deg, var(--coffee-medium), var(--coffee-light));
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 4rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--coffee-dark);
+      color: var(--cream);
+      padding: 60px 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-brand h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      color: var(--cream-dark);
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--gold);
+      color: var(--coffee-dark);
+    }
+
+    .footer-links h4 {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--cream-dark);
+      opacity: 0.8;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+      opacity: 1;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--cream-dark);
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-item:nth-child(1) {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .about-content h2,
+      .section-header h2 {
+        font-size: 2rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item:nth-child(1) {
+        grid-column: span 1;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .social-links {
+        justify-content: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">CAFÉ AROMA</a>
+      <ul class="nav-links">
+        <li><a href="#about">เกี่ยวกับเรา</a></li>
+        <li><a href="#menu">เมนู</a></li>
+        <li><a href="#gallery">บรรยากาศ</a></li>
+        <li><a href="#contact">ติดต่อ</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">จองโต๊ะ</a>
+    </div>
+  </nav>
+
+  <!-- Back Button -->
+  <a href="../../index.html#portfolio" class="back-btn">
+    <i class="fa-solid fa-arrow-left"></i> กลับ Portfolio
+  </a>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-badge">✦ Premium Coffee Experience ✦</span>
+      <h1>Café <span>Aroma</span></h1>
+      <p>สัมผัสประสบการณ์กาแฟพรีเมียมในบรรยากาศอบอุ่น ที่ซึ่งทุกแก้วถูกชงด้วยความรักและความใส่ใจ</p>
+      <div class="hero-buttons">
+        <a href="#menu" class="btn btn-primary">
+          <i class="fa-solid fa-mug-hot"></i> สำรวจเมนู
+        </a>
+        <a href="#about" class="btn btn-outline">
+          <i class="fa-solid fa-play"></i> เรื่องราวของเรา
+        </a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <div class="about-image-main">
+            <i class="fa-solid fa-mug-hot"></i>
+          </div>
+          <div class="about-image-accent">
+            <span class="number">15+</span>
+            <span class="text">ปีแห่งประสบการณ์</span>
+          </div>
+        </div>
+        <div class="about-content">
+          <span class="section-label">About Us</span>
+          <h2>เรื่องราวความหลงใหลในรสชาติกาแฟ</h2>
+          <p>Café Aroma ก่อตั้งขึ้นจากความหลงใหลในกาแฟที่สืบทอดมากว่า 15 ปี เราคัดสรรเมล็ดกาแฟจากไร่ชั้นนำทั่วโลก
+            และคั่วสดใหม่ทุกวันเพื่อให้คุณได้สัมผัสรสชาติที่สมบูรณ์แบบ</p>
+          <p>ทุกแก้วกาแฟที่ Café Aroma ถูกชงด้วยความรักจากบาริสต้ามืออาชีพ ในบรรยากาศที่อบอุ่นเหมือนอยู่บ้าน</p>
+          <div class="about-features">
+            <div class="about-feature">
+              <i class="fa-solid fa-check"></i>
+              <span>เมล็ดกาแฟคัดพิเศษ</span>
+            </div>
+            <div class="about-feature">
+              <i class="fa-solid fa-check"></i>
+              <span>บาริสต้ามืออาชีพ</span>
+            </div>
+            <div class="about-feature">
+              <i class="fa-solid fa-check"></i>
+              <span>คั่วสดใหม่ทุกวัน</span>
+            </div>
+            <div class="about-feature">
+              <i class="fa-solid fa-check"></i>
+              <span>บรรยากาศอบอุ่น</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="menu">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label" style="color: var(--gold-light);">Our Menu</span>
+        <h2>เมนูแนะนำ</h2>
+        <p>สัมผัสรสชาติกาแฟระดับพรีเมียมที่คัดสรรมาเพื่อคุณโดยเฉพาะ</p>
+      </div>
+      <div class="menu-categories">
+        <button class="menu-cat-btn active">ทั้งหมด</button>
+        <button class="menu-cat-btn">กาแฟร้อน</button>
+        <button class="menu-cat-btn">กาแฟเย็น</button>
+        <button class="menu-cat-btn">เครื่องดื่มพิเศษ</button>
+        <button class="menu-cat-btn">ขนมหวาน</button>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-image"><i class="fa-solid fa-mug-hot"></i></div>
+          <div class="menu-info">
+            <h4>Signature Latte</h4>
+            <p>ลาเต้สูตรพิเศษของร้าน เข้มข้น หอมกรุ่น รสชาติกลมกล่อม</p>
+            <span class="menu-price">85 ฿</span>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-image"><i class="fa-solid fa-snowflake"></i></div>
+          <div class="menu-info">
+            <h4>Iced Mocha Premium</h4>
+            <p>มอคค่าเย็นผสมช็อกโกแลตเบลเยียมแท้ ราดซอสคาราเมล</p>
+            <span class="menu-price">95 ฿</span>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-image"><i class="fa-solid fa-leaf"></i></div>
+          <div class="menu-info">
+            <h4>Matcha Latte</h4>
+            <p>มัทฉะลาเต้จากชาเขียวแท้ญี่ปุ่น เนื้อครีมนุ่มละมุน</p>
+            <span class="menu-price">90 ฿</span>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-image"><i class="fa-solid fa-cookie"></i></div>
+          <div class="menu-info">
+            <h4>Affogato</h4>
+            <p>ไอศกรีมวานิลลาพรีเมียมราดด้วยเอสเปรสโซช็อตคู่</p>
+            <span class="menu-price">110 ฿</span>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-image"><i class="fa-solid fa-wine-glass"></i></div>
+          <div class="menu-info">
+            <h4>Cold Brew</h4>
+            <p>กาแฟสกัดเย็น 18 ชั่วโมง รสชาตินุ่มลึก ไม่เปรี้ยว</p>
+            <span class="menu-price">100 ฿</span>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-image"><i class="fa-solid fa-fire"></i></div>
+          <div class="menu-info">
+            <h4>Espresso Double Shot</h4>
+            <p>เอสเปรสโซช็อตคู่ เข้มข้น สำหรับคนรักกาแฟแท้</p>
+            <span class="menu-price">70 ฿</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="gallery">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 40px;">
+        <span class="section-label">Gallery</span>
+        <h2 style="color: var(--coffee-dark);">บรรยากาศร้าน</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item"><i class="fa-solid fa-store"></i></div>
+        <div class="gallery-item"><i class="fa-solid fa-mug-hot"></i></div>
+        <div class="gallery-item"><i class="fa-solid fa-couch"></i></div>
+        <div class="gallery-item"><i class="fa-solid fa-utensils"></i></div>
+        <div class="gallery-item"><i class="fa-solid fa-book"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label" style="color: var(--gold-light);">Testimonials</span>
+        <h2>รีวิวจากลูกค้า</h2>
+        <p>เสียงตอบรับจากลูกค้าที่รักเรา</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"กาแฟอร่อยมาก บรรยากาศดี เหมาะสำหรับนั่งทำงานมากๆ พนักงานน่ารักด้วย
+            จะกลับมาอีกแน่นอน!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">A</div>
+            <div class="author-info">
+              <h5>คุณอารยา</h5>
+              <span>Verified Customer</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Signature Latte อร่อยที่สุดที่เคยลอง รสชาติเข้มข้นแต่ไม่ขม มีกลิ่นหอมมาก
+            ประทับใจมากครับ"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">ส</div>
+            <div class="author-info">
+              <h5>คุณสมชาย</h5>
+              <span>Verified Customer</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"มาทุกสัปดาห์เลยค่ะ ชอบบรรยากาศมากๆ นั่งอ่านหนังสือได้ทั้งวัน กาแฟก็อร่อย ขนมก็ดี
+            สมบูรณ์แบบ!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">ม</div>
+            <div class="author-info">
+              <h5>คุณมณีรัตน์</h5>
+              <span>Verified Customer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2>มาสัมผัสประสบการณ์กับเรา</h2>
+      <p>เปิดบริการทุกวัน 8:00 - 21:00 น. | จองโต๊ะล่วงหน้าได้</p>
+      <a href="#contact" class="btn">
+        <i class="fa-solid fa-calendar-check"></i> จองโต๊ะเลย
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <span class="section-label">Contact Us</span>
+          <h2>ติดต่อเรา</h2>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="contact-text">
+              <h4>ที่อยู่</h4>
+              <p>123 ถนนสุขุมวิท ซอย 39<br>แขวงคลองตัน เขตวัฒนา<br>กรุงเทพมหานคร 10110</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="contact-text">
+              <h4>โทรศัพท์</h4>
+              <p>02-123-4567</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+            <div class="contact-text">
+              <h4>เวลาเปิดทำการ</h4>
+              <p>ทุกวัน 8:00 - 21:00 น.</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map">
+          <i class="fa-solid fa-map-location-dot"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>CAFÉ AROMA</h3>
+        <p>ร้านกาแฟพรีเมียมที่ใส่ใจทุกรายละเอียด เพื่อประสบการณ์ที่ดีที่สุดของคุณ</p>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#"><i class="fa-brands fa-line"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">เกี่ยวกับเรา</a></li>
+          <li><a href="#menu">เมนู</a></li>
+          <li><a href="#gallery">บรรยากาศ</a></li>
+          <li><a href="#contact">ติดต่อ</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#">กาแฟร้อน</a></li>
+          <li><a href="#">กาแฟเย็น</a></li>
+          <li><a href="#">เครื่องดื่มพิเศษ</a></li>
+          <li><a href="#">ขนมหวาน</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Hours</h4>
+        <ul>
+          <li><a href="#">จันทร์ - ศุกร์</a></li>
+          <li><a href="#">8:00 - 21:00</a></li>
+          <li><a href="#">เสาร์ - อาทิตย์</a></li>
+          <li><a href="#">9:00 - 22:00</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Café Aroma. All Rights Reserved.</p>
+      <p>Designed by <strong>KEN.CODE</strong></p>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+
+</html>

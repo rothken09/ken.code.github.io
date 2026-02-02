@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MISA ART - Portfolio ของศิลปินดิจิทัลอาร์ตมืออาชีพ">
+  <title>MISA ART | Digital Artist Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-dark: #0a0a0f;
+      --bg-card: #121218;
+      --bg-light: #1a1a24;
+      --primary: #a855f7;
+      --primary-light: #c084fc;
+      --primary-dark: #7c3aed;
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+      mix-blend-mode: difference;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(10, 10, 15, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 1rem 0;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-cta {
+      padding: 0.75rem 2rem;
+      background: var(--gradient);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 1000;
+      padding: 1rem 1.5rem;
+      background: var(--bg-card);
+      color: var(--primary);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      border: 1px solid var(--primary);
+    }
+
+    .back-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 100px 2rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 100%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+    }
+
+    .hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 50px;
+      color: var(--primary);
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(168, 85, 247, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+
+    .stat-item h3 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-item p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .hero-image {
+      position: relative;
+      animation: fadeInUp 1s ease 0.3s both;
+    }
+
+    .hero-image-main {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image-main::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></svg>') repeat;
+      background-size: 50px;
+    }
+
+    .floating-card {
+      position: absolute;
+      background: var(--bg-card);
+      border-radius: 15px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .floating-card-1 {
+      top: 20%;
+      left: -40px;
+    }
+
+    .floating-card-2 {
+      bottom: 20%;
+      right: -40px;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .floating-icon {
+      width: 45px;
+      height: 45px;
+      background: var(--gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .floating-text h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .floating-text p {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* Services Section */
+    .services {
+      padding: 120px 2rem;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: rgba(168, 85, 247, 0.1);
+      border-radius: 50px;
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .service-price span {
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    /* Portfolio Section */
+    .portfolio {
+      padding: 120px 2rem;
+      background: var(--bg-light);
+    }
+
+    .portfolio-filter {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--gradient);
+      border-color: transparent;
+      color: white;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .portfolio-item {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: white;
+    }
+
+    .portfolio-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-item:hover::before {
+      opacity: 1;
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      transform: translateY(0);
+    }
+
+    .portfolio-overlay h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .portfolio-overlay p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .portfolio-item:nth-child(1) {
+      grid-column: span 2;
+      grid-row: span 2;
+      aspect-ratio: 1;
+    }
+
+    .portfolio-item:nth-child(4) {
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+    }
+
+    .portfolio-item:nth-child(5) {
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+    }
+
+    /* Process Section */
+    .process {
+      padding: 120px 2rem;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .process-step::after {
+      content: '';
+      position: absolute;
+      top: 40px;
+      right: -40%;
+      width: 80%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+    }
+
+    .process-step:last-child::after {
+      display: none;
+    }
+
+    .step-number {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 1.5rem;
+    }
+
+    .process-step h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .process-step p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 150px 2rem;
+      background: var(--bg-light);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta p {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-card);
+      padding: 60px 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-brand h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--gradient);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .footer-links h4 {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-image {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .portfolio-item:nth-child(1) {
+        grid-column: span 2;
+      }
+
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .process-step::after {
+        display: none;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      .nav-links,
+      .nav-cta {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-stats {
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+
+      .section-header h2 {
+        font-size: 2rem;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .portfolio-item:nth-child(1) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .social-links {
+        justify-content: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .floating-card {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">MISA ART</a>
+      <ul class="nav-links">
+        <li><a href="#services">บริการ</a></li>
+        <li><a href="#portfolio">ผลงาน</a></li>
+        <li><a href="#process">ขั้นตอน</a></li>
+        <li><a href="#contact">ติดต่อ</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">จ้างเขียนภาพ</a>
+    </div>
+  </nav>
+
+  <!-- Back Button -->
+  <a href="../../index.html#portfolio" class="back-btn">
+    <i class="fa-solid fa-arrow-left"></i> กลับ Portfolio
+  </a>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-badge">Available for Freelance</span>
+        <h1>สร้างสรรค์<br><span>ศิลปะดิจิทัล</span><br>ที่มีเอกลักษณ์</h1>
+        <p>ศิลปินดิจิทัลอาร์ตมืออาชีพ เชี่ยวชาญด้านการวาดภาพประกอบ, คาแรกเตอร์ดีไซน์ และงาน Illustration สไตล์เฉพาะตัว
+        </p>
+        <div class="hero-buttons">
+          <a href="#portfolio" class="btn btn-primary">
+            <i class="fa-solid fa-image"></i> ดูผลงาน
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            <i class="fa-solid fa-envelope"></i> ติดต่อ
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <h3>200+</h3>
+            <p>ผลงานที่เสร็จสมบูรณ์</p>
+          </div>
+          <div class="stat-item">
+            <h3>150+</h3>
+            <p>ลูกค้าที่พึงพอใจ</p>
+          </div>
+          <div class="stat-item">
+            <h3>5+</h3>
+            <p>ปีประสบการณ์</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-image-main">
+          <i class="fa-solid fa-palette"></i>
+        </div>
+        <div class="floating-card floating-card-1">
+          <div class="floating-icon"><i class="fa-solid fa-star"></i></div>
+          <div class="floating-text">
+            <h4>5.0 Rating</h4>
+            <p>จากรีวิวลูกค้า</p>
+          </div>
+        </div>
+        <div class="floating-card floating-card-2">
+          <div class="floating-icon"><i class="fa-solid fa-check"></i></div>
+          <div class="floating-text">
+            <h4>งานคุณภาพ</h4>
+            <p>ส่งตรงเวลา 100%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Services</span>
+        <h2>บริการของเรา</h2>
+        <p>รับวาดภาพตามสั่ง ทุกสไตล์ ทุกความต้องการ</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-user"></i></div>
+          <h3>Character Design</h3>
+          <p>ออกแบบตัวละครต้นฉบับ สไตล์ Anime, Semi-realistic หรือ Chibi ตามที่คุณต้องการ</p>
+          <div class="service-price">฿1,500<span> เป็นต้นไป</span></div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-image"></i></div>
+          <h3>Illustration</h3>
+          <p>วาดภาพประกอบสำหรับหนังสือ, โซเชียลมีเดีย, หรือใช้งานเชิงพาณิชย์</p>
+          <div class="service-price">฿2,000<span> เป็นต้นไป</span></div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-paintbrush"></i></div>
+          <h3>Avatar / Profile Art</h3>
+          <p>วาดภาพโปรไฟล์, Avatar สำหรับใช้ในโซเชียลมีเดียหรือเกม</p>
+          <div class="service-price">฿800<span> เป็นต้นไป</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="portfolio">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Portfolio</span>
+        <h2>ผลงานของเรา</h2>
+        <p>ตัวอย่างผลงานที่ผ่านมา</p>
+      </div>
+      <div class="portfolio-filter">
+        <button class="filter-btn active">ทั้งหมด</button>
+        <button class="filter-btn">Character</button>
+        <button class="filter-btn">Illustration</button>
+        <button class="filter-btn">Fan Art</button>
+        <button class="filter-btn">Avatar</button>
+      </div>
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <div class="portfolio-overlay">
+            <h4>Fantasy Character</h4>
+            <p>Character Design</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <i class="fa-solid fa-heart"></i>
+          <div class="portfolio-overlay">
+            <h4>Anime Portrait</h4>
+            <p>Avatar</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <i class="fa-solid fa-dragon"></i>
+          <div class="portfolio-overlay">
+            <h4>Dragon Knight</h4>
+            <p>Illustration</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <i class="fa-solid fa-moon"></i>
+          <div class="portfolio-overlay">
+            <h4>Night Scene</h4>
+            <p>Illustration</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <i class="fa-solid fa-cat"></i>
+          <div class="portfolio-overlay">
+            <h4>Cute Mascot</h4>
+            <p>Character Design</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section id="process" class="process">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Process</span>
+        <h2>ขั้นตอนการทำงาน</h2>
+        <p>ง่ายๆ เพียง 4 ขั้นตอน</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-number">01</div>
+          <h3>ปรึกษา</h3>
+          <p>อธิบายรายละเอียดงานที่ต้องการ สไตล์ และงบประมาณ</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">02</div>
+          <h3>ร่างภาพ</h3>
+          <p>ส่ง Sketch เบื้องต้นให้รีวิว แก้ไขได้ 2 ครั้ง</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">03</div>
+          <h3>ลงสี</h3>
+          <p>ลงสีและตกแต่งรายละเอียดตามที่ตกลง</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">04</div>
+          <h3>ส่งมอบ</h3>
+          <p>ไฟล์ความละเอียดสูง PNG/PSD พร้อมใช้งาน</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="contact" class="cta">
+    <div class="cta-content">
+      <h2>พร้อมสร้างสรรค์ผลงาน?</h2>
+      <p>ติดต่อเพื่อปรึกษาและขอใบเสนอราคาได้เลย ยินดีให้คำปรึกษาฟรี!</p>
+      <a href="#" class="btn btn-primary">
+        <i class="fa-brands fa-line"></i> ติดต่อทาง LINE
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>MISA ART</h3>
+        <p>ศิลปินดิจิทัลอาร์ตมืออาชีพ พร้อมสร้างสรรค์ผลงานที่มีเอกลักษณ์เฉพาะตัวสำหรับคุณ</p>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#services">บริการ</a></li>
+          <li><a href="#portfolio">ผลงาน</a></li>
+          <li><a href="#process">ขั้นตอน</a></li>
+          <li><a href="#contact">ติดต่อ</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Character Design</a></li>
+          <li><a href="#">Illustration</a></li>
+          <li><a href="#">Avatar Art</a></li>
+          <li><a href="#">Fan Art</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">LINE: @misaart</a></li>
+          <li><a href="#">misa@example.com</a></li>
+          <li><a href="#">Twitter: @misaart</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 MISA ART. All Rights Reserved.</p>
+      <p>Designed by <strong>KEN.CODE</strong></p>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+
+</html>

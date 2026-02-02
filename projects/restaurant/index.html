@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ครัวคุณย่า - ร้านอาหารไทยต้นตำรับ รสชาติแบบบ้านๆ">
+  <title>ครัวคุณย่า | ร้านอาหารไทยต้นตำรับ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #e63946;
+      --primary-dark: #c1121f;
+      --primary-light: #ff6b77;
+      --secondary: #f4a261;
+      --secondary-dark: #e76f51;
+      --bg-light: #fff8f0;
+      --bg-dark: #1d1d1d;
+      --text-dark: #2b2b2b;
+      --text-light: #666666;
+      --gold: #d4a574;
+      --success: #2a9d8f;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 248, 240, 0.85);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(230, 57, 70, 0.1);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    nav.scrolled {
+      padding: 0.5rem 0;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-cta {
+      background: var(--primary);
+      color: white !important;
+      padding: 0.75rem 1.75rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta::after {
+      display: none;
+    }
+
+    .nav-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(230, 57, 70, 0.4);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      display: flex;
+      align-items: center;
+      padding: 120px 20px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(230, 57, 70, 0.9) 0%, rgba(244, 162, 97, 0.8) 100%);
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+      opacity: 1;
+      filter: blur(2px);
+    }
+
+    /* Animated gradient mesh */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 100%;
+      height: 150%;
+      background: radial-gradient(circle at 30% 50%, rgba(230, 57, 70, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(244, 162, 97, 0.3) 0%, transparent 50%);
+      animation: meshFloat 15s ease-in-out infinite;
+    }
+
+    @keyframes meshFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 650px;
+      color: white;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.5rem;
+      background: rgba(244, 162, 97, 0.2);
+      border: 2px solid var(--secondary);
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      animation: slideInLeft 0.8s ease-out 0.3s backwards;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      font-weight: 800;
+      animation: fadeInUp 0.8s ease-out 0.5s backwards;
+    }
+
+    .hero h1 span {
+      color: var(--secondary);
+      display: block;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.95;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      animation: fadeInUp 0.8s ease-out 0.7s backwards;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease-out 0.9s backwards;
+    }
+
+    .btn {
+      padding: 1.1rem 2.25rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      font-size: 1.05rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      box-shadow: 0 8px 25px rgba(230, 57, 70, 0.35),
+                  inset 0 -2px 8px rgba(0, 0, 0, 0.2),
+                  inset 0 2px 8px rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(230, 57, 70, 0.45),
+                  inset 0 -2px 8px rgba(0, 0, 0, 0.25),
+                  inset 0 2px 8px rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-primary:active {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px rgba(230, 57, 70, 0.35),
+                  inset 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: var(--text-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: var(--primary);
+      color: white;
+      padding: 2rem 20px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: scale(1.05);
+    }
+
+    .stat-item h3 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--secondary);
+    }
+
+    .stat-item p {
+      font-size: 1rem;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    /* Features */
+    .features {
+      padding: 100px 20px;
+      background: var(--bg-light);
+      position: relative;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+      font-weight: 800;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    .section-title p {
+      color: var(--text-light);
+      font-size: 1.15rem;
+      margin-top: 1.5rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 35px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2.75rem;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(230, 57, 70, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.03), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(244, 162, 97, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .feature-card:hover::before {
+      left: 100%;
+    }
+
+    .feature-card:hover::after {
+      opacity: 1;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 25px 60px rgba(230, 57, 70, 0.2);
+      border-color: var(--primary-light);
+    }
+
+    .feature-icon {
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: white;
+      margin: 0 auto 1.75rem;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(230, 57, 70, 0.3);
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: rotateY(360deg) scale(1.1);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+
+    .feature-card p {
+      color: var(--text-light);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* Menu Section */
+    .menu {
+      padding: 100px 20px;
+      background: white;
+      position: relative;
+    }
+
+    .menu-categories {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      padding: 0.85rem 2rem;
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: var(--primary);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s ease, height 0.5s ease;
+      z-index: 0;
+    }
+
+    .category-btn:hover::before,
+    .category-btn.active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .category-btn span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(230, 57, 70, 0.3);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .menu-item {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 1.75rem;
+      display: flex;
+      gap: 1.75rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(230, 57, 70, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, rgba(230, 57, 70, 0.03));
+      transition: top 0.4s ease;
+    }
+
+    .menu-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.4s ease;
+    }
+
+    .menu-item:hover::before {
+      top: 0;
+    }
+
+    .menu-item:hover::after {
+      width: 100%;
+    }
+
+    .menu-item:hover {
+      transform: translateX(15px) translateY(-5px);
+      box-shadow: 0 20px 50px rgba(230, 57, 70, 0.15);
+      border-color: var(--primary-light);
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .menu-image {
+      width: 110px;
+      height: 110px;
+      border-radius: 20px;
+      flex-shrink: 0;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 25px rgba(230, 57, 70, 0.3);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+
+    .menu-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s ease;
+    }
+
+    .menu-item:hover .menu-image {
+      transform: scale(1.05);
+      box-shadow: 0 12px 35px rgba(230, 57, 70, 0.4);
+    }
+
+    .menu-item:hover .menu-image img {
+      transform: scale(1.15);
+    }
+
+    .menu-info {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-info h4 {
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .menu-info p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .menu-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .menu-badge {
+      padding: 0.35rem 0.85rem;
+      background: var(--success);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .menu-badge.popular {
+      background: var(--secondary);
+    }
+
+    /* Gallery Section */
+    .gallery {
+      padding: 100px 20px;
+      background: var(--bg-light);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 50px;
+    }
+
+    .gallery-item {
+      aspect-ratio: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      background: #f5f5f5;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s ease;
+    }
+
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(230, 57, 70, 0.8), rgba(244, 162, 97, 0.8));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    .gallery-item:hover::before {
+      opacity: 1;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(230, 57, 70, 0.3);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+      filter: brightness(0.8);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 4rem;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: rgba(230, 57, 70, 0.4);
+      backdrop-filter: blur(5px);
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      padding: 100px 20px;
+      background: white;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .testimonial-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 248, 240, 0.9) 100%);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem;
+      border-radius: 25px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      border: 1px solid rgba(230, 57, 70, 0.05);
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 5rem;
+      color: var(--primary);
+      opacity: 0.15;
+      font-family: Georgia, serif;
+      z-index: 0;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 25px 60px rgba(230, 57, 70, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 1),
+                  0 0 0 1px rgba(230, 57, 70, 0.1);
+      border-color: rgba(230, 57, 70, 0.2);
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.5rem;
+      box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+    }
+
+    .testimonial-info h4 {
+      font-size: 1.15rem;
+      margin-bottom: 0.25rem;
+      font-weight: 700;
+    }
+
+    .testimonial-info p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .testimonial-rating {
+      color: var(--secondary);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .testimonial-text {
+      color: var(--text-light);
+      line-height: 1.8;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Info Section */
+    .info-section {
+      padding: 100px 20px;
+      background: var(--bg-dark);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="2" height="2" fill="rgba(230,57,70,0.1)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      padding: 2.75rem;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .info-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--secondary);
+      transform: translateY(-15px);
+      box-shadow: 0 20px 60px rgba(230, 57, 70, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                  0 0 0 1px rgba(244, 162, 97, 0.2);
+    }
+
+    .info-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 700;
+    }
+
+    .info-card h3 i {
+      color: var(--secondary);
+      font-size: 1.8rem;
+    }
+
+    .info-card p {
+      opacity: 0.9;
+      margin-bottom: 0.75rem;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .info-card a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .info-card a:hover {
+      color: var(--primary-light);
+      text-decoration: underline;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 100px 20px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: moveBackground 20s linear infinite;
+    }
+
+    @keyframes moveBackground {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1.25rem;
+      font-weight: 800;
+    }
+
+    .cta p {
+      margin-bottom: 2.5rem;
+      opacity: 0.95;
+      font-size: 1.2rem;
+      line-height: 1.7;
+    }
+
+    .cta .btn {
+      background: white;
+      color: var(--primary);
+      font-size: 1.15rem;
+      padding: 1.25rem 2.75rem;
+    }
+
+    .cta .btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-dark);
+      color: white;
+      padding: 60px 20px 30px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      color: var(--secondary);
+    }
+
+    .footer-section p {
+      opacity: 0.8;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary);
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(230, 57, 70, 0.4);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      opacity: 0.7;
+      font-size: 0.95rem;
+    }
+
+    /* Scroll to Top */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 55px;
+      height: 55px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      box-shadow: 0 5px 20px rgba(230, 57, 70, 0.4);
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 8px 30px rgba(230, 57, 70, 0.5);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero::before {
+        width: 100%;
+        clip-path: polygon(0 60%, 100% 40%, 100% 100%, 0% 100%);
+      }
+
+      .hero-content {
+        text-align: center;
+      }
+
+      .hero-btns {
+        justify-content: center;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+      }
+
+      .btn {
+        padding: 0.95rem 1.75rem;
+        font-size: 0.95rem;
+      }
+
+      .menu-item {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .menu-image {
+        width: 100%;
+        height: 150px;
+      }
+
+      .menu-footer {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    /* Loading Animation */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading {
+      animation: spin 1s linear infinite;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="nav-content">
+        <div class="logo">
+          <span>🍜</span>
+          <span>ครัวคุณย่า</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#home">หน้าแรก</a></li>
+          <li><a href="#menu">เมนู</a></li>
+          <li><a href="#gallery">แกลเลอรี่</a></li>
+          <li><a href="#testimonials">รีวิว</a></li>
+          <li><a href="#info">ติดต่อ</a></li>
+          <li><a href="tel:0812345678" class="nav-cta">โทรจองโต๊ะ</a></li>
+        </ul>
+        <button class="mobile-menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">
+          <i class="fa-solid fa-award"></i>
+          ร้านอาหารไทยยอดนิยม
+        </span>
+        <h1>
+          ครัวคุณย่า
+          <span>รสชาติแบบบ้านๆ</span>
+        </h1>
+        <p>อาหารไทยต้นตำรับ สูตรลับที่ส่งต่อมากว่า 3 รุ่น วัตถุดิบสดใหม่ทุกวัน ปรุงด้วยความใส่ใจเหมือนทำให้คนในครอบครัว</p>
+        <div class="hero-btns">
+          <a href="#menu" class="btn btn-primary">
+            <i class="fa-solid fa-utensils"></i>
+            <span>ดูเมนูทั้งหมด</span>
+          </a>
+          <a href="tel:0812345678" class="btn btn-outline">
+            <i class="fa-solid fa-phone"></i>
+            <span>โทรจองโต๊ะ</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3>50+</h3>
+          <p>ปีแห่งความเชี่ยวชาญ</p>
+        </div>
+        <div class="stat-item">
+          <h3>100+</h3>
+          <p>เมนูให้เลือก</p>
+        </div>
+        <div class="stat-item">
+          <h3>10K+</h3>
+          <p>ลูกค้าพึงพอใจ</p>
+        </div>
+        <div class="stat-item">
+          <h3>4.9★</h3>
+          <p>คะแนนรีวิว</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>ทำไมต้องครัวคุณย่า?</h2>
+        <p>เราใส่ใจทุกจานเหมือนทำให้คนในครอบครัว</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-fire-burner"></i>
+          </div>
+          <h3>สูตรต้นตำรับ</h3>
+          <p>สูตรลับจากคุณย่า ส่งต่อมากว่า 50 ปี รสชาติที่คุณไม่มีวันลืม</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-leaf"></i>
+          </div>
+          <h3>วัตถุดิบสดใหม่</h3>
+          <p>คัดสรรวัตถุดิบคุณภาพดีที่สุด สดใหม่ทุกวัน ไม่มีสารกันเสีย</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <h3>ปรุงด้วยใจ</h3>
+          <p>ทุกจานปรุงสดใหม่ตามสั่ง ใส่ใจทุกรายละเอียด รสชาติสม่ำเสมอ</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-truck"></i>
+          </div>
+          <h3>บริการจัดส่ง</h3>
+          <p>ส่งตรงถึงบ้าน ร้อนๆ อร่อยเหมือนทานที่ร้าน ฟรีในรัศมี 5 กม.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="menu">
+    <div class="container">
+      <div class="section-title">
+        <h2>เมนูแนะนำ</h2>
+        <p>อาหารจานเด็ดที่คุณต้องลอง</p>
+      </div>
+      <div class="menu-categories">
+        <button class="category-btn active"><span>ทั้งหมด</span></button>
+        <button class="category-btn"><span>อาหารจานเดียว</span></button>
+        <button class="category-btn"><span>กับข้าว</span></button>
+        <button class="category-btn"><span>ของหวาน</span></button>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-image">
+            <img src="https://images.unsplash.com/photo-1569562211093-4ed0d0758f12?w=400&h=400&fit=crop" alt="ข้าวซอยไก่">
+          </div>
+          <div class="menu-info">
+            <h4>ข้าวซอยไก่</h4>
+            <p>เส้นไข่กรอบ น่องไก่ต้มนุ่ม น้ำแกงกะทิเข้มข้น กลิ่นหอมเครื่องแกง</p>
+            <div class="menu-footer">
+              <span class="menu-price">65 ฿</span>
+              <span class="menu-badge popular">ยอดนิยม</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-image">
+            <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&h=400&fit=crop" alt="แกงเขียวหวาน">
+          </div>
+          <div class="menu-info">
+            <h4>แกงเขียวหวานลูกชิ้นปลากราย</h4>
+            <p>น้ำแกงหอมกะทิ รสชาติกลมกล่อม พริกไทยออนหวานกำลังดี</p>
+            <div class="menu-footer">
+              <span class="menu-price">80 ฿</span>
+              <span class="menu-badge">แนะนำ</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-image">
+            <img src="https://images.unsplash.com/photo-1626804475297-41608ea09aeb?w=400&h=400&fit=crop" alt="ผัดไทย">
+          </div>
+          <div class="menu-info">
+            <h4>ผัดไทยกุ้งสด</h4>
+            <p>เส้นจันท์นุ่มกำลังดี กุ้งแม่น้ำตัวใหญ่ รสเปรี้ยวหวานกลมกล่อม</p>
+            <div class="menu-footer">
+              <span class="menu-price">85 ฿</span>
+              <span class="menu-badge popular">ยอดนิยม</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-image">
+            <img src="https://images.unsplash.com/photo-1548943487-a2e4e43b4853?w=400&h=400&fit=crop" alt="ต้มยำกุ้ง">
+          </div>
+          <div class="menu-info">
+            <h4>ต้มยำกุ้งน้ำข้น</h4>
+            <p>รสจัดจ้านเผ็ดร้อน กุ้งแม่น้ำตัวโต เห็ดรวม เครื่องในครบ</p>
+            <div class="menu-footer">
+              <span class="menu-price">120 ฿</span>
+              <span class="menu-badge">แนะนำ</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-image">
+            <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&h=400&fit=crop" alt="คอหมูย่าง">
+          </div>
+          <div class="menu-info">
+            <h4>คอหมูย่าง</h4>
+            <p>หมักนุ่ม ย่างถ่าน คู่น้ำจิ้มแจ่วรสเด็ด เสิร์ฟพร้อมส้มตำ</p>
+            <div class="menu-footer">
+              <span class="menu-price">75 ฿</span>
+              <span class="menu-badge popular">ยอดนิยม</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-image">
+            <img src="https://www.ofm.co.th/blog/wp-content/uploads/2025/02/%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B5%E0%B8%A2%E0%B8%A7%E0%B8%A1%E0%B8%B0%E0%B8%A1%E0%B9%88%E0%B8%A7%E0%B8%87.png" alt="ข้าวเหนียวมะม่วง">
+          </div>
+          <div class="menu-info">
+            <h4>ข้าวเหนียวมะม่วง</h4>
+            <p>ข้าวเหนียวมูน มะม่วงน้ำดอกไม้สุกหวาน กะทิข้นหอมมัน</p>
+            <div class="menu-footer">
+              <span class="menu-price">60 ฿</span>
+              <span class="menu-badge">แนะนำ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="gallery">
+    <div class="container">
+      <div class="section-title">
+        <h2>บรรยากาศร้าน</h2>
+        <p>มุมสวยๆ ภายในร้านครัวคุณย่า</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1562565652-a0d8f0c59eb4?w=600&h=600&fit=crop" alt="Thai Restaurant Interior">
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-search-plus"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?w=600&h=600&fit=crop" alt="Thai Food Dishes">
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-search-plus"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&h=600&fit=crop" alt="Thai Curry">
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-search-plus"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=600&h=600&fit=crop" alt="Thai Street Food">
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-search-plus"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="testimonials">
+    <div class="container">
+      <div class="section-title">
+        <h2>ลูกค้าของเราพูดถึง</h2>
+        <p>ความคิดเห็นจากผู้มาใช้บริการจริง</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">ส</div>
+            <div class="testimonial-info">
+              <h4>คุณสมชาย ใจดี</h4>
+              <p>ลูกค้าประจำ</p>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-text">รสชาติอร่อยแบบบ้านๆ ทานแล้วติดใจ เป็นร้านประจำของครอบครัวเลยครับ ข้าวซอยไก่อร่อยมาก!</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">ป</div>
+            <div class="testimonial-info">
+              <h4>คุณปรียา สวยงาม</h4>
+              <p>นักธุรกิจ</p>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-text">สั่งเดลิเวอรี่บ่อยมาก อาหารมาถึงยังร้อนๆ บริการดี อาหารอร่อย ราคาสมเหตุสมผล แนะนำเลยค่ะ</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">ณ</div>
+            <div class="testimonial-info">
+              <h4>คุณณัฐพล รักสุขภาพ</h4>
+              <p>ครูโรงเรียน</p>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-text">ชอบที่ใช้วัตถุดิบสดใหม่ รสชาติสม่ำเสมอทุกครั้ง พนักงานบริการดี บรรยากาศอบอุ่นแบบบ้านๆ</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <section id="info" class="info-section">
+    <div class="container">
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>
+            <i class="fa-solid fa-clock"></i>
+            เวลาเปิด-ปิด
+          </h3>
+          <p><strong>จันทร์ - ศุกร์:</strong> 10:00 - 21:00 น.</p>
+          <p><strong>เสาร์ - อาทิตย์:</strong> 09:00 - 22:00 น.</p>
+          <p><strong>หยุดทุกวันพุธ</strong></p>
+          <p style="margin-top: 1rem; opacity: 0.8; font-size: 0.95rem;">
+            <i class="fa-solid fa-info-circle"></i> แนะนำจองล่วงหน้าสำหรับกลุ่มใหญ่
+          </p>
+        </div>
+        <div class="info-card">
+          <h3>
+            <i class="fa-solid fa-location-dot"></i>
+            ที่ตั้งร้าน
+          </h3>
+          <p><strong>ครัวคุณย่า</strong></p>
+          <p>123 ถนนสุขุมวิท</p>
+          <p>แขวงคลองเตย เขตคลองเตย</p>
+          <p>กรุงเทพมหานคร 10110</p>
+          <p style="margin-top: 1rem;">
+            <a href="#" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-map-marked-alt"></i> เปิดแผนที่
+            </a>
+          </p>
+        </div>
+        <div class="info-card">
+          <h3>
+            <i class="fa-solid fa-phone"></i>
+            ติดต่อเรา
+          </h3>
+          <p style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-phone"></i>
+            โทร: <a href="tel:0812345678">081-234-5678</a>
+          </p>
+          <p style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-brands fa-line"></i>
+            Line: <a href="#">@kruakunya</a>
+          </p>
+          <p style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-envelope"></i>
+            Email: <a href="mailto:info@kruakunya.com">info@kruakunya.com</a>
+          </p>
+          <p style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-brands fa-facebook"></i>
+            Facebook: <a href="#">ครัวคุณย่า</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-content">
+      <h2>จองโต๊ะล่วงหน้า</h2>
+      <p>สำหรับกลุ่มใหญ่หรือวันพิเศษ แนะนำให้จองล่วงหน้า<br>เพื่อรับประกันที่นั่งและการบริการที่ดีที่สุด</p>
+      <a href="tel:0812345678" class="btn">
+        <i class="fa-solid fa-phone"></i>
+        <span>โทรจองเลย 081-234-5678</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ครัวคุณย่า</h3>
+          <p>ร้านอาหารไทยต้นตำรับ รสชาติแบบบ้านๆ ที่ส่งต่อมากว่า 50 ปี ด้วยความใส่ใจในทุกรายละเอียด</p>
+          <div class="social-links">
+            <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" title="Line"><i class="fa-brands fa-line"></i></a>
+            <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>เมนูอาหาร</h3>
+          <ul class="footer-links">
+            <li><a href="#menu">อาหารจานเดียว</a></li>
+            <li><a href="#menu">กับข้าว</a></li>
+            <li><a href="#menu">ต้มยำ & แกง</a></li>
+            <li><a href="#menu">ของหวาน</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>บริการ</h3>
+          <ul class="footer-links">
+            <li><a href="#info">จองโต๊ะ</a></li>
+            <li><a href="#">สั่งเดลิเวอรี่</a></li>
+            <li><a href="#">จัดเลี้ยง</a></li>
+            <li><a href="#">ติดต่อเรา</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>ติดต่อเรา</h3>
+          <p><i class="fa-solid fa-location-dot"></i> 123 ถนนสุขุมวิท กรุงเทพฯ</p>
+          <p><i class="fa-solid fa-phone"></i> 081-234-5678</p>
+          <p><i class="fa-solid fa-envelope"></i> info@kruakunya.com</p>
+          <p><i class="fa-solid fa-clock"></i> จันทร์-ศุกร์ 10:00-21:00</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 ครัวคุณย่า. All rights reserved. Designed by KEN.CODE</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-top" id="scrollTop">
+    <i class="fa-solid fa-arrow-up"></i>
+  </div>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Scroll to top button
+    const scrollTop = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTop.classList.add('visible');
+      } else {
+        scrollTop.classList.remove('visible');
+      }
+    });
+
+    scrollTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Menu category filter
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href !== 'tel:0812345678') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const navHeight = navbar.offsetHeight;
+            const targetPosition = target.offsetTop - navHeight - 20;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe feature cards
+    document.querySelectorAll('.feature-card').forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+      observer.observe(card);
+    });
+
+    // Observe menu items
+    document.querySelectorAll('.menu-item').forEach((item, index) => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(30px)';
+      item.style.transition = `all 0.6s ease ${index * 0.08}s`;
+      observer.observe(item);
+    });
+
+    // Observe gallery items
+    document.querySelectorAll('.gallery-item').forEach((item, index) => {
+      item.style.opacity = '0';
+      item.style.transform = 'scale(0.9)';
+      item.style.transition = `all 0.6s ease ${index * 0.1}s`;
+      observer.observe(item);
+    });
+
+    // Observe testimonial cards
+    document.querySelectorAll('.testimonial-card').forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+      observer.observe(card);
+    });
+
+    // Observe info cards
+    document.querySelectorAll('.info-card').forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = `all 0.6s ease ${index * 0.15}s`;
+      observer.observe(card);
+    });
+
+    // Animate stats on scroll
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.stat-item h3').forEach((stat, index) => {
+            setTimeout(() => {
+              stat.style.transform = 'scale(1.2)';
+              setTimeout(() => {
+                stat.style.transform = 'scale(1)';
+              }, 300);
+            }, index * 200);
+          });
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const statsBar = document.querySelector('.stats-bar');
+    if (statsBar) {
+      statsObserver.observe(statsBar);
+    }
+  </script>
+</body>
+
+</html>

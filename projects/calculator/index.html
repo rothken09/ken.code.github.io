@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="เครื่องคิดเลขออนไลน์ ดีไซน์สวย ใช้งานง่าย">
+  <title>Modern Calculator | เครื่องคิดเลข</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-dark: #1a1a2e;
+      --bg-card: #16213e;
+      --primary: #e94560;
+      --secondary: #0f3460;
+      --accent: #533483;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --gradient: linear-gradient(135deg, #e94560 0%, #533483 100%);
+    }
+
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: var(--bg-dark);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background Animation */
+    .bg-circles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-circles li {
+      position: absolute;
+      display: block;
+      list-style: none;
+      width: 20px;
+      height: 20px;
+      background: rgba(233, 69, 96, 0.1);
+      animation: animate 25s linear infinite;
+      bottom: -150px;
+      border-radius: 50%;
+    }
+
+    .bg-circles li:nth-child(1) {
+      left: 25%;
+      width: 80px;
+      height: 80px;
+      animation-delay: 0s;
+    }
+
+    .bg-circles li:nth-child(2) {
+      left: 10%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 2s;
+      animation-duration: 12s;
+    }
+
+    .bg-circles li:nth-child(3) {
+      left: 70%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 4s;
+    }
+
+    .bg-circles li:nth-child(4) {
+      left: 40%;
+      width: 60px;
+      height: 60px;
+      animation-delay: 0s;
+      animation-duration: 18s;
+    }
+
+    .bg-circles li:nth-child(5) {
+      left: 65%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 0s;
+    }
+
+    .bg-circles li:nth-child(6) {
+      left: 75%;
+      width: 110px;
+      height: 110px;
+      animation-delay: 3s;
+    }
+
+    .bg-circles li:nth-child(7) {
+      left: 35%;
+      width: 150px;
+      height: 150px;
+      animation-delay: 7s;
+    }
+
+    .bg-circles li:nth-child(8) {
+      left: 50%;
+      width: 25px;
+      height: 25px;
+      animation-delay: 15s;
+      animation-duration: 45s;
+    }
+
+    .bg-circles li:nth-child(9) {
+      left: 20%;
+      width: 15px;
+      height: 15px;
+      animation-delay: 2s;
+      animation-duration: 35s;
+    }
+
+    .bg-circles li:nth-child(10) {
+      left: 85%;
+      width: 150px;
+      height: 150px;
+      animation-delay: 0s;
+      animation-duration: 11s;
+    }
+
+    @keyframes animate {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+      }
+
+      100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+      }
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      padding: 0.75rem 1.5rem;
+      background: var(--gradient);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+    }
+
+    .back-btn:hover {
+      transform: translateX(-5px);
+      box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+    }
+
+    /* Calculator Container */
+    .calculator-wrapper {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .calculator-title {
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .calculator-title h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .calculator-title h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .calculator-title p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .calculator {
+      background: var(--bg-card);
+      border-radius: 30px;
+      padding: 2rem;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 360px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Display */
+    .display {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: right;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .previous {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      min-height: 1.5rem;
+      word-wrap: break-word;
+    }
+
+    .current {
+      color: var(--text-primary);
+      font-size: 2.5rem;
+      font-weight: 700;
+      word-wrap: break-word;
+      line-height: 1.2;
+    }
+
+    /* Buttons */
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .btn {
+      aspect-ratio: 1;
+      border: none;
+      border-radius: 16px;
+      font-family: inherit;
+      font-size: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-number {
+      background: var(--secondary);
+      color: var(--text-primary);
+    }
+
+    .btn-number:hover {
+      background: #1a4a7a;
+      transform: scale(1.05);
+    }
+
+    .btn-operator {
+      background: var(--accent);
+      color: var(--text-primary);
+    }
+
+    .btn-operator:hover {
+      background: #6a449a;
+      transform: scale(1.05);
+    }
+
+    .btn-equals {
+      background: var(--gradient);
+      color: white;
+      grid-column: span 2;
+      aspect-ratio: unset;
+      height: 100%;
+    }
+
+    .btn-equals:hover {
+      transform: scale(1.02);
+      box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
+    }
+
+    .btn-clear {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-clear:hover {
+      background: #d13a54;
+      transform: scale(1.05);
+    }
+
+    .btn-function {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+    }
+
+    .btn-function:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Footer Credit */
+    .credit {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      z-index: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .calculator {
+        padding: 1.5rem;
+        border-radius: 25px;
+      }
+
+      .btn {
+        font-size: 1.25rem;
+        border-radius: 12px;
+      }
+
+      .current {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Background Animation -->
+  <ul class="bg-circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+  <a href="../../index.html#portfolio" class="back-btn">
+    <i class="fa-solid fa-arrow-left"></i> กลับ Portfolio
+  </a>
+
+  <div class="calculator-wrapper">
+    <div class="calculator-title">
+      <h1>Modern <span>Calculator</span></h1>
+      <p>เครื่องคิดเลขดีไซน์สวย ใช้งานง่าย</p>
+    </div>
+
+    <div class="calculator">
+      <div class="display">
+        <div class="previous" id="previous"></div>
+        <div class="current" id="current">0</div>
+      </div>
+      <div class="buttons">
+        <button class="btn btn-clear" onclick="clearAll()">AC</button>
+        <button class="btn btn-function" onclick="toggleSign()">±</button>
+        <button class="btn btn-function" onclick="percentage()">%</button>
+        <button class="btn btn-operator" onclick="setOperator('÷')">÷</button>
+
+        <button class="btn btn-number" onclick="appendNumber('7')">7</button>
+        <button class="btn btn-number" onclick="appendNumber('8')">8</button>
+        <button class="btn btn-number" onclick="appendNumber('9')">9</button>
+        <button class="btn btn-operator" onclick="setOperator('×')">×</button>
+
+        <button class="btn btn-number" onclick="appendNumber('4')">4</button>
+        <button class="btn btn-number" onclick="appendNumber('5')">5</button>
+        <button class="btn btn-number" onclick="appendNumber('6')">6</button>
+        <button class="btn btn-operator" onclick="setOperator('-')">−</button>
+
+        <button class="btn btn-number" onclick="appendNumber('1')">1</button>
+        <button class="btn btn-number" onclick="appendNumber('2')">2</button>
+        <button class="btn btn-number" onclick="appendNumber('3')">3</button>
+        <button class="btn btn-operator" onclick="setOperator('+')">+</button>
+
+        <button class="btn btn-number" onclick="appendNumber('0')"
+          style="grid-column: span 2; aspect-ratio: unset;">0</button>
+        <button class="btn btn-number" onclick="appendNumber('.')">.</button>
+        <button class="btn btn-equals" onclick="calculate()">=</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="credit">Designed by KEN.CODE</p>
+
+  <script>
+    let currentValue = '0';
+    let previousValue = '';
+    let operator = null;
+    let shouldResetScreen = false;
+
+    const currentDisplay = document.getElementById('current');
+    const previousDisplay = document.getElementById('previous');
+
+    function updateDisplay() {
+      currentDisplay.textContent = currentValue;
+      if (operator != null) {
+        previousDisplay.textContent = `${previousValue} ${operator}`;
+      } else {
+        previousDisplay.textContent = '';
+      }
+    }
+
+    function appendNumber(num) {
+      if (shouldResetScreen) {
+        currentValue = '';
+        shouldResetScreen = false;
+      }
+      if (num === '.' && currentValue.includes('.')) return;
+      if (currentValue === '0' && num !== '.') {
+        currentValue = num;
+      } else {
+        currentValue += num;
+      }
+      updateDisplay();
+    }
+
+    function setOperator(op) {
+      if (operator !== null) {
+        calculate();
+      }
+      previousValue = currentValue;
+      operator = op;
+      shouldResetScreen = true;
+      updateDisplay();
+    }
+
+    function calculate() {
+      if (operator === null || shouldResetScreen) return;
+      let result;
+      const prev = parseFloat(previousValue);
+      const current = parseFloat(currentValue);
+
+      switch (operator) {
+        case '+':
+          result = prev + current;
+          break;
+        case '-':
+        case '−':
+          result = prev - current;
+          break;
+        case '×':
+          result = prev * current;
+          break;
+        case '÷':
+          if (current === 0) {
+            result = 'Error';
+          } else {
+            result = prev / current;
+          }
+          break;
+        default:
+          return;
+      }
+
+      currentValue = result.toString();
+      if (currentValue.includes('.') && currentValue.split('.')[1].length > 8) {
+        currentValue = parseFloat(currentValue).toFixed(8).toString();
+      }
+      operator = null;
+      previousValue = '';
+      shouldResetScreen = true;
+      updateDisplay();
+    }
+
+    function clearAll() {
+      currentValue = '0';
+      previousValue = '';
+      operator = null;
+      shouldResetScreen = false;
+      updateDisplay();
+    }
+
+    function toggleSign() {
+      if (currentValue !== '0') {
+        currentValue = (parseFloat(currentValue) * -1).toString();
+        updateDisplay();
+      }
+    }
+
+    function percentage() {
+      currentValue = (parseFloat(currentValue) / 100).toString();
+      updateDisplay();
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (e.key >= '0' && e.key <= '9') appendNumber(e.key);
+      if (e.key === '.') appendNumber('.');
+      if (e.key === '+') setOperator('+');
+      if (e.key === '-') setOperator('-');
+      if (e.key === '*') setOperator('×');
+      if (e.key === '/') setOperator('÷');
+      if (e.key === 'Enter' || e.key === '=') calculate();
+      if (e.key === 'Escape' || e.key === 'c' || e.key === 'C') clearAll();
+      if (e.key === 'Backspace') {
+        currentValue = currentValue.slice(0, -1) || '0';
+        updateDisplay();
+      }
+    });
+
+    updateDisplay();
+  </script>
+</body>
+
+</html>

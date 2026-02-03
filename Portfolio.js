@@ -133,35 +133,62 @@ window.addEventListener('scroll', animateSkillBars);
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
-  contactForm.addEventListener('submit', function (e) {
+  contactForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
     // Get form data
-    const formData = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      subject: document.getElementById('subject').value,
-      message: document.getElementById('message').value
-    };
+    const formData = new FormData(contactForm);
+    const data = Object.fromEntries(formData.entries());
 
     // Simple validation
-    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+    if (!data.name || !data.email || !data.subject || !data.message) {
       showNotification('กรุณากรอกข้อมูลให้ครบทุกช่อง', 'error');
       return;
     }
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
+    if (!emailRegex.test(data.email)) {
       showNotification('กรุณากรอกอีเมลให้ถูกต้อง', 'error');
       return;
     }
 
-    // Show success message (in real app, you would send to server)
-    showNotification('ส่งข้อความสำเร็จ! ขอบคุณที่ติดต่อมาครับ', 'success');
+    // Show loading state
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalBtnContent = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังส่ง...';
+    submitBtn.disabled = true;
 
-    // Reset form
-    contactForm.reset();
+    try {
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: new FormData(contactForm)
+      });
+
+      if (response.ok) {
+        // Show success message
+        showNotification('ส่งข้อความสำเร็จ! ขอบคุณที่ติดต่อมาครับ', 'success');
+        // Reset form
+        contactForm.reset();
+      } else {
+        const result = await response.json();
+        if (Object.hasOwn(result, 'errors')) {
+            showNotification(result["errors"].map(error => error["message"]).join(", "), 'error');
+        } else {
+            showNotification('เกิดข้อผิดพลาดในการส่งข้อความ กรุณาลองใหม่', 'error');
+        }
+      }
+    } catch (error) {
+      showNotification('เกิดข้อผิดพลาดในการเชื่อมต่อ', 'error');
+      console.error('Error:', error);
+    } finally {
+      // Restore button state
+      submitBtn.innerHTML = originalBtnContent;
+      submitBtn.disabled = false;
+    }
   });
 }
 
